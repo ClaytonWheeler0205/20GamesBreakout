@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Sprites/PongBackground.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/PongWall.png" type="Texture" id=2]
+[ext_resource path="res://Scenes/PaddleManager.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scripts/Game/BreakoutGame.cs" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -9,6 +11,7 @@ extents = Vector2( 8, 8 )
 [sub_resource type="RectangleShape2D" id=2]
 
 [node name="Main" type="Node"]
+script = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
@@ -67,3 +70,13 @@ collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaVisuals/Gutter"]
 shape = SubResource( 2 )
+
+[node name="Managers" type="Node" parent="."]
+
+[node name="PaddleManager" parent="Managers" instance=ExtResource( 3 )]
+unique_name_in_owner = true
+
+[node name="Paddle" parent="Managers/PaddleManager" index="1"]
+position = Vector2( 0, 320 )
+
+[editable path="Managers/PaddleManager"]

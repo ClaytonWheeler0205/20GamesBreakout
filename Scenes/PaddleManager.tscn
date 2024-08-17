@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Scenes/Paddle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scenes/PaddleController.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scripts/Game/PaddleManager.cs" type="Script" id=3]
+
+[node name="PaddleManager" type="Node"]
+script = ExtResource( 3 )
+
+[node name="PaddleController" parent="." instance=ExtResource( 2 )]
+unique_name_in_owner = true
+
+[node name="Paddle" parent="." instance=ExtResource( 1 )]
+unique_name_in_owner = true
