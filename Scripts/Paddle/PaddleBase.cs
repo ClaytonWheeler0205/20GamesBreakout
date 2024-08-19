@@ -19,7 +19,6 @@ namespace Game.Paddle
         public override void _Ready()
         {
             _startPos = Position;
-            GD.Print(_startPos.y);
         }
 
         public void SetDirection(Vector2 newDirection)
@@ -36,7 +35,7 @@ namespace Game.Paddle
 
         public override void _PhysicsProcess(float delta)
         {
-            MoveAndSlide(_velocity * _speed * delta);
+            MoveAndSlide(_velocity * _speed);
         }
     }
 }

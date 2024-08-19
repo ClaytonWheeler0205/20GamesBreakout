@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Sprites/PongBackground.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/PongWall.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/PaddleManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Game/BreakoutGame.cs" type="Script" id=4]
+[ext_resource path="res://Scenes/Ball.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -22,7 +23,7 @@ current = true
 scale = Vector2( 30, 45 )
 texture = ExtResource( 1 )
 
-[node name="Wall" type="StaticBody2D" parent="ArenaVisuals"]
+[node name="Wall" type="StaticBody2D" parent="ArenaVisuals" groups=["Wall"]]
 position = Vector2( -232, 0 )
 scale = Vector2( 1, 45 )
 z_index = 1
@@ -35,7 +36,7 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaVisuals/Wall"]
 shape = SubResource( 1 )
 
-[node name="Ceiling" type="StaticBody2D" parent="ArenaVisuals"]
+[node name="Ceiling" type="StaticBody2D" parent="ArenaVisuals" groups=["Ceiling"]]
 position = Vector2( 0, -240 )
 rotation = 1.5708
 scale = Vector2( 1.5, 30 )
@@ -49,7 +50,7 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaVisuals/Ceiling"]
 shape = SubResource( 1 )
 
-[node name="Wall2" type="StaticBody2D" parent="ArenaVisuals"]
+[node name="Wall2" type="StaticBody2D" parent="ArenaVisuals" groups=["Wall"]]
 position = Vector2( 232, 0 )
 scale = Vector2( 1, 45 )
 z_index = 1
@@ -62,7 +63,7 @@ texture = ExtResource( 2 )
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaVisuals/Wall2"]
 shape = SubResource( 1 )
 
-[node name="Gutter" type="StaticBody2D" parent="ArenaVisuals"]
+[node name="Gutter" type="StaticBody2D" parent="ArenaVisuals" groups=["Gutter"]]
 position = Vector2( 0, 350 )
 scale = Vector2( 22.5, 1 )
 collision_layer = 32
@@ -77,6 +78,10 @@ shape = SubResource( 2 )
 unique_name_in_owner = true
 
 [node name="Paddle" parent="Managers/PaddleManager" index="1"]
-position = Vector2( 0, 320 )
+position = Vector2( 0, 330 )
+
+[node name="Ball" parent="." instance=ExtResource( 5 )]
+_minX = -210.0
+_maxX = 210.0
 
 [editable path="Managers/PaddleManager"]
