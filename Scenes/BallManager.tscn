@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Scenes/Ball.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scripts/Game/BallManager.cs" type="Script" id=2]
+
+[node name="BallManager" type="Node"]
+script = ExtResource( 2 )
+
+[node name="Ball" parent="." instance=ExtResource( 1 )]
+unique_name_in_owner = true
+
+[node name="PauseTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+one_shot = true
+
+[connection signal="GutterHit" from="Ball" to="." method="OnBallGutterHit"]
+[connection signal="timeout" from="PauseTimer" to="." method="OnPauseTimerTimeout"]

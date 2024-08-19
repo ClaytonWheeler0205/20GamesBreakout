@@ -66,7 +66,6 @@ namespace Game.Ball
                 GD.PrintErr("ERROR: Sprite child node not found!");
             }
             base._Ready();
-            StartBall();
         }
 
         public override void ResetBall()
