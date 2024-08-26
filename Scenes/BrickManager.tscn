@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Scripts/Game/BrickManager.cs" type="Script" id=1]
+
+[node name="BrickManager" type="Node"]
+script = ExtResource( 1 )
+_startPos = Vector2( -198, -130 )
+_deltaX = 33.0
+_deltaY = 20.0

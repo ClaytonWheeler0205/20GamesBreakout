@@ -28,7 +28,6 @@ namespace Game
             _ballRef = GetNode<BallBase>("%Ball");
             _timerRef = GetNode<Timer>("%PauseTimer");
             CheckReferences();
-            StartGame(); // for testing purposes only
         }
 
         private void CheckReferences()

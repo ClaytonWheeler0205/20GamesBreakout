@@ -1,5 +1,7 @@
 using System;
+using Game.Brick;
 using Game.Paddle;
+using Game.SFX;
 using Godot;
 using Util.ExtensionMethods;
 
@@ -50,6 +52,8 @@ namespace Game.Ball
         /// </summary>
         private bool _hasHitPaddle;
 
+        private AudioPlayer _audioPlayer;
+
         /// <summary>
         /// Signal to let the game know that the ball has hit the gutter in the arena.
         /// </summary>
@@ -64,6 +68,11 @@ namespace Game.Ball
             if (!_spriteRef.IsValid())
             {
                 GD.PrintErr("ERROR: Sprite child node not found!");
+            }
+            _audioPlayer = GetNode<AudioPlayer>("%AudioStreamPlayer");
+            if (!_audioPlayer.IsValid())
+            {
+                GD.PrintErr("ERROR: Audio player node not found!");
             }
             base._Ready();
         }
@@ -129,8 +138,14 @@ namespace Game.Ball
             else
             {
                 // Play a ball hit sound effect
+                _audioPlayer.PlaySound("ball_hit");
                 Direction = Direction.Bounce(collision.Normal);
                 _hasHitPaddle = false;
+                if (collisionNode.IsInGroup(BRICK_NODE_GROUP))
+                {
+                    BrickBase brick = collisionNode as BrickBase;
+                    brick.BrickHit();
+                }
             }
         }
 
@@ -139,6 +154,7 @@ namespace Game.Ball
             // Play a gutter hit sound effect
             ResetBall();
             _hasHitPaddle = false;
+            _audioPlayer.PlaySound("gutter_hit");
             EmitSignal("GutterHit");
             GD.Print("Gutter hit!");
         }
@@ -149,6 +165,7 @@ namespace Game.Ball
             {
                 _hasHitPaddle = true;
                 // play a ball hit sound effect
+                _audioPlayer.PlaySound("ball_hit");
 
                 // Change the angle of the ball depending on how far from the center of the paddle the ball hit, up to a max angle
                 // of 150 degrees

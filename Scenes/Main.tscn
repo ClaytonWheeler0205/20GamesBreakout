@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Sprites/PongBackground.png" type="Texture" id=1]
 [ext_resource path="res://Sprites/PongWall.png" type="Texture" id=2]
 [ext_resource path="res://Scenes/PaddleManager.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scripts/Game/BreakoutGame.cs" type="Script" id=4]
 [ext_resource path="res://Scenes/BallManager.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Scenes/BrickManager.tscn" type="PackedScene" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 8, 8 )
@@ -81,10 +82,17 @@ unique_name_in_owner = true
 position = Vector2( 0, 330 )
 
 [node name="BallManager" parent="Managers" instance=ExtResource( 5 )]
+unique_name_in_owner = true
 
 [node name="Ball" parent="Managers/BallManager" index="0"]
 _minX = -210.0
 _maxX = 210.0
+
+[node name="BrickManager" parent="Managers" instance=ExtResource( 6 )]
+unique_name_in_owner = true
+_startPos = Vector2( -198, -190 )
+
+[connection signal="BricksCleared" from="Managers/BrickManager" to="." method="OnBricksCleared"]
 
 [editable path="Managers/PaddleManager"]
 [editable path="Managers/BallManager"]
