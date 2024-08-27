@@ -137,14 +137,17 @@ namespace Game.Ball
             // Case 3: The ball hit either a wall or a brick
             else
             {
-                // Play a ball hit sound effect
-                _audioPlayer.PlaySound("ball_hit");
                 Direction = Direction.Bounce(collision.Normal);
                 _hasHitPaddle = false;
                 if (collisionNode.IsInGroup(BRICK_NODE_GROUP))
                 {
+                    _audioPlayer.PlaySound("brick_hit");
                     BrickBase brick = collisionNode as BrickBase;
                     brick.BrickHit();
+                }
+                else
+                {
+                    _audioPlayer.PlaySound("ball_hit");
                 }
             }
         }

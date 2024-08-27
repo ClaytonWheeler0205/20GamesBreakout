@@ -9,6 +9,7 @@ namespace Game.SFX
         // Audio Streams
         private AudioStream _ballHitSFX = GD.Load<AudioStream>("res://Audio/Pong_Ball_Hit.wav"); 
         private AudioStream _ballGutterSFX = GD.Load<AudioStream>("res://Audio/Pong_Goal_Hit.wav");
+        private AudioStream _brickBreakSFX = GD.Load<AudioStream>("res://Audio/brick_break.wav");
 
         public override void PlaySound(string audio)
         {
@@ -19,6 +20,9 @@ namespace Game.SFX
                     break;
                 case "gutter_hit":
                     SoundToPlay = _ballGutterSFX;
+                    break;
+                case "brick_hit":
+                    SoundToPlay = _brickBreakSFX;
                     break;
             }
             base.PlaySound(audio);
