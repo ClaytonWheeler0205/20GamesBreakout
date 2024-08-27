@@ -48,7 +48,15 @@ namespace Game
 
         private void BuildBricks()
         {
-            // Red bricks: 4 points
+            BuildRedBricks();
+            BuildOrangeBricks();
+            BuildGreenBricks();
+            BuildYellowBricks();
+        }
+
+        private void BuildRedBricks()
+        {
+            // Red bricks: 7 points
             for (int i = 0; i < 2; i++)
             {
                 for (int j = 0; j < 13; j++)
@@ -57,14 +65,17 @@ namespace Game
                     BrickBase redBrick = _brickScene.Instance<BreakoutBrick>();
                     redBrick.GlobalPosition = brickPos;
                     redBrick.SetColor("red");
-                    redBrick.PointValue = 4;
+                    redBrick.PointValue = 7;
                     AddChild(redBrick);
                     redBrick.Connect("AwardPoints", this, "OnAwardPoints");
                     _brickCount++;
                 }
             }
+        }
 
-            // Orange bricks: 3 points
+        private void BuildOrangeBricks()
+        {
+            // Orange bricks: 5 points
             for (int i = 2; i < 4; i++)
             {
                 for (int j = 0; j < 13; j++)
@@ -73,14 +84,17 @@ namespace Game
                     BrickBase orangeBrick = _brickScene.Instance<BreakoutBrick>();
                     orangeBrick.GlobalPosition = brickPos;
                     orangeBrick.SetColor("orange");
-                    orangeBrick.PointValue = 3;
+                    orangeBrick.PointValue = 5;
                     AddChild(orangeBrick);
                     orangeBrick.Connect("AwardPoints", this, "OnAwardPoints");
                     _brickCount++;
                 }
             }
+        }
 
-            // Green bricks: 2 points
+        private void BuildGreenBricks()
+        {
+            // Green bricks: 3 points
             for (int i = 4; i < 6; i++)
             {
                 for (int j = 0; j < 13; j++)
@@ -89,13 +103,16 @@ namespace Game
                     BrickBase greenBrick = _brickScene.Instance<BreakoutBrick>();
                     greenBrick.GlobalPosition = brickPos;
                     greenBrick.SetColor("green");
-                    greenBrick.PointValue = 2;
+                    greenBrick.PointValue = 3;
                     AddChild(greenBrick);
                     greenBrick.Connect("AwardPoints", this, "OnAwardPoints");
                     _brickCount++;
                 }
             }
+        }
 
+        private void BuildYellowBricks()
+        {
             // Yellow bricks: 1 point
             for (int i = 6; i < 8; i++)
             {
