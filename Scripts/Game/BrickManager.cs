@@ -22,11 +22,8 @@ namespace Game
 
         [Signal]
         delegate void BricksCleared();
-
-        // Called when the node enters the scene tree for the first time.
-        public override void _Ready()
-        {
-        }
+        [Signal]
+        delegate void PointsScored(int pointValue);
 
         public bool StartGame()
         {
@@ -132,7 +129,7 @@ namespace Game
 
         public void OnAwardPoints(int pointValue)
         {
-            GD.Print(pointValue);
+            EmitSignal(nameof(PointsScored), pointValue);
             _brickCount--;
             if (_brickCount <= 0)
             {

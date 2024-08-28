@@ -1,3 +1,4 @@
+using Game.UI;
 using Godot;
 using Util.ExtensionMethods;
 
@@ -10,6 +11,7 @@ namespace Game
         IGameManager _paddleManager;
         IGameManager _ballManager;
         IGameManager _brickManager;
+        IGameScore _scoreUI;
 
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
@@ -54,6 +56,17 @@ namespace Game
                 GD.PrintErr("ERROR: Breakout brick manager is not valid!");
                 GetTree().Quit();
             }
+            _scoreUI = GetNode<IGameScore>("%ScoreUI");
+            if (!(_scoreUI is Node scoreNode))
+            {
+                GD.PrintErr("ERROR: Score UI is not a node!");
+                GetTree().Quit();
+            }
+            else if (!scoreNode.IsValid())
+            {
+                GD.PrintErr("ERROR: Score UI is not valid!");
+                GetTree().Quit();
+            }
         }
 
         private void StartGame()
@@ -86,6 +99,7 @@ namespace Game
             {
                 GetTree().Quit();
             }
+            _scoreUI.ResetScore();
         }
 
         public void OnBricksCleared()
