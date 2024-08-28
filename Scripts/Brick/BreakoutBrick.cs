@@ -33,6 +33,7 @@ namespace Game.Brick
                     brickColor = new Color(1, 1, 0, 1);
                     break;
             }
+            brickColorName = color;
             Modulate = brickColor;
         }
     }

@@ -52,6 +52,8 @@ namespace Game.Ball
         /// </summary>
         private bool _hasHitPaddle;
 
+        //variables for checking speed boost conditions
+
         private AudioPlayer _audioPlayer;
 
         /// <summary>
@@ -59,6 +61,9 @@ namespace Game.Ball
         /// </summary>
         [Signal]
         delegate void GutterHit();
+
+        [Signal]
+        delegate void PaddleHit();
 
         // Called when the node enters the scene tree for the first time.
 
@@ -133,6 +138,7 @@ namespace Game.Ball
             else if (collisionNode.IsInGroup(PADDLE_NODE_GROUP))
             {
                 HandlePaddleCollision(collision);
+                EmitSignal(nameof(PaddleHit));
             }
             // Case 3: The ball hit either a wall or a brick
             else

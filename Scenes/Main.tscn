@@ -98,6 +98,7 @@ _startPos = Vector2( -198, -190 )
 [node name="ScoreUI" parent="GUI" instance=ExtResource( 7 )]
 unique_name_in_owner = true
 
+[connection signal="PaddleHit" from="Managers/BallManager/Ball" to="." method="OnPaddleHit"]
 [connection signal="BricksCleared" from="Managers/BrickManager" to="." method="OnBricksCleared"]
 [connection signal="PointsScored" from="Managers/BrickManager" to="GUI/ScoreUI" method="OnPointsScored"]
 

@@ -13,6 +13,10 @@ namespace Game
         IGameManager _brickManager;
         IGameScore _scoreUI;
 
+        private bool _screenOneCleared = false;
+        private bool _screenTwoCleared = false;
+        private bool _onScreenTwo = false;
+
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
@@ -100,11 +104,36 @@ namespace Game
                 GetTree().Quit();
             }
             _scoreUI.ResetScore();
+            _screenOneCleared = false;
+            _screenTwoCleared = false;
         }
 
         public void OnBricksCleared()
         {
-            EndGame();
+            if (!_screenOneCleared)
+            {
+                _screenOneCleared = true;
+            }
+            else if (!_screenTwoCleared)
+            {
+                _screenTwoCleared = true;
+            }
+        }
+
+        public void OnPaddleHit()
+        {
+            if (_screenTwoCleared)
+            {
+                EndGame();
+            }
+            else if (_screenOneCleared && !_onScreenTwo)
+            {
+                if (!_brickManager.StartGame())
+                {
+                    GetTree().Quit();
+                }
+                _onScreenTwo = true;
+            }
         }
 
         public override void _UnhandledInput(InputEvent @event)

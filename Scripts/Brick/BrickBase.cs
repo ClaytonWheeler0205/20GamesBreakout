@@ -8,6 +8,8 @@ namespace Game.Brick
     {
         // Member variables
         protected Color brickColor;
+        protected string brickColorName = null;
+        public string BrickColorName => brickColorName;
         protected int pointValue = 1;
         public int PointValue
         {
