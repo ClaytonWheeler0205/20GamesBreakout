@@ -87,7 +87,7 @@ namespace Game.UI
         public void OnPointsScored(int pointValue)
         {
             _score += pointValue;
-            _score = Mathf.Clamp(_score, 0, 99999);
+            _score = Mathf.Clamp(_score, 0, 999);
             UpdateScore();
         }
     }

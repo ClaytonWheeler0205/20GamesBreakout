@@ -56,6 +56,7 @@ namespace Game
             if (!_ballRef.IsValid()) { return false; }
 
             _ballRef.ResetBall();
+            _timerRef.Stop();
             _isActive = false;
             return true;
         }
