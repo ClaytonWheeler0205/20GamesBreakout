@@ -53,6 +53,11 @@ namespace Game.Ball
         private bool _hasHitPaddle;
 
         //variables for checking speed boost conditions
+        private int _bricksHit;
+        private bool _hasHitFourBricks;
+        private bool _hasHitTwelveBricks;
+        private bool _hasHitOrangeBrick;
+        private bool _hasHitRedBrick;
 
         private AudioPlayer _audioPlayer;
 
@@ -103,12 +108,22 @@ namespace Game.Ball
 
             // Set the ball's direction, speed, and visibility
             Direction = new Vector2(0, 1).Rotated(angle);
-            _currentSpeed = Speed;
+            ResetBallSpeed();
             if (_spriteRef.IsValid())
             {
                 _spriteRef.Visible = true;
             }
             base.StartBall();
+        }
+
+        private void ResetBallSpeed()
+        {
+            _currentSpeed = Speed;
+            _bricksHit = 0;
+            _hasHitFourBricks = false;
+            _hasHitTwelveBricks = false;
+            _hasHitOrangeBrick = false;
+            _hasHitRedBrick = false;
         }
 
         protected override void MoveBall(float delta)
@@ -147,9 +162,7 @@ namespace Game.Ball
                 _hasHitPaddle = false;
                 if (collisionNode.IsInGroup(BRICK_NODE_GROUP))
                 {
-                    _audioPlayer.PlaySound("brick_hit");
-                    BrickBase brick = collisionNode as BrickBase;
-                    brick.BrickHit();
+                    HandleBrickCollision(collisionNode);
                 }
                 else
                 {
@@ -196,6 +209,38 @@ namespace Game.Ball
                     Direction = Direction.Normalized();
                 }
 
+            }
+        }
+
+        private void HandleBrickCollision(Node collisionNode)
+        {
+            _audioPlayer.PlaySound("brick_hit");
+            BrickBase brick = collisionNode as BrickBase;
+            brick.BrickHit();
+            _bricksHit++;
+            if (_bricksHit % 4 == 0 && !_hasHitFourBricks)
+            {
+                _currentSpeed += _speedIncrease;
+                _hasHitFourBricks = true;
+                GD.Print("Speed increase");
+            }
+            if (_bricksHit % 12 == 0 && !_hasHitTwelveBricks)
+            {
+                _currentSpeed += _speedIncrease;
+                _hasHitTwelveBricks = true;
+                GD.Print("Speed increase");
+            }
+            if (brick.BrickColorName == "orange" && !_hasHitOrangeBrick)
+            {
+                _currentSpeed += _speedIncrease;
+                _hasHitOrangeBrick = true;
+                GD.Print("Speed increase");
+            }
+            if (brick.BrickColorName == "red" && !_hasHitRedBrick)
+            {
+                _currentSpeed += _speedIncrease;
+                _hasHitRedBrick = true;
+                GD.Print("Speed increase");
             }
         }
 
