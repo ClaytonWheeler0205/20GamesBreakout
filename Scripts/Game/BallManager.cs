@@ -25,7 +25,7 @@ namespace Game
 
         public override void _Ready()
         {
-            _ballRef = GetNode<BallBase>("%Ball");
+            _ballRef = GetNode<BallBase>("Ball");
             _timerRef = GetNode<Timer>("%PauseTimer");
             CheckReferences();
         }

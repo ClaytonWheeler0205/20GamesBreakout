@@ -11,17 +11,19 @@ namespace Game
         IGameManager _paddleManager;
         IGameManager _ballManager;
         IGameManager _brickManager;
+        IGameManager _livesManager;
         IGameScore _scoreUI;
 
         private bool _screenOneCleared = false;
         private bool _screenTwoCleared = false;
         private bool _onScreenTwo = false;
 
+        private bool _isPlaying = false;
+
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
             SetNodeReferences();
-            StartGame();
         }
 
         private void SetNodeReferences()
@@ -71,6 +73,17 @@ namespace Game
                 GD.PrintErr("ERROR: Score UI is not valid!");
                 GetTree().Quit();
             }
+            _livesManager = GetNode<IGameManager>("%LivesUI");
+            if (!(_livesManager is Node livesNode))
+            {
+                GD.PrintErr("ERROR: Breakout lives manager is not a node!");
+                GetTree().Quit();
+            }
+            else if (!livesNode.IsValid())
+            {
+                GD.PrintErr("ERROR: Breakout lives manager is not valid!");
+                GetTree().Quit();
+            }
         }
 
         private void StartGame()
@@ -87,6 +100,11 @@ namespace Game
             {
                 GetTree().Quit();
             }
+            if (!_livesManager.StartGame())
+            {
+                GetTree().Quit();
+            }
+            _isPlaying = true;
         }
 
         private void EndGame()
@@ -103,9 +121,15 @@ namespace Game
             {
                 GetTree().Quit();
             }
+            if (!_livesManager.EndGame())
+            {
+                GetTree().Quit();
+            }
             _scoreUI.ResetScore();
             _screenOneCleared = false;
             _screenTwoCleared = false;
+
+            _isPlaying = false;
         }
 
         public void OnBricksCleared()
@@ -136,13 +160,18 @@ namespace Game
             }
         }
 
+        public void OnGameOver()
+        {
+            EndGame();
+        }
+
         public override void _UnhandledInput(InputEvent @event)
         {
             if (@event.IsActionPressed("reset_game"))
             {
                 EndGame();
             }
-            else if (@event.IsActionPressed("test_play"))
+            else if (@event.IsActionPressed("test_play") && !_isPlaying)
             {
                 StartGame();
             }
