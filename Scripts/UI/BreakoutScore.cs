@@ -14,6 +14,8 @@ namespace Game.UI
         private int _score = 0;
         private int _highScore;
 
+        private ConfigFile _config = new ConfigFile();
+
         // Called when the node enters the scene tree for the first time.
         public override void _Ready()
         {
@@ -28,6 +30,42 @@ namespace Game.UI
             {
                 GD.PrintErr("ERROR: High score label reference is not valid!");
             }
+            LoadHighScore();
+        }
+
+        private void LoadHighScore()
+        {
+            Error err = _config.Load("user://highscore.cfg");
+
+            if (err != Error.Ok)
+            {
+                _highScore = 0;
+                return;
+            }
+
+            _highScore = (int)_config.GetValue("PlayerScore", "high_score");
+            if (_highScoreLabelReference.IsValid())
+            {
+                if (_highScore < 10)
+                {
+                    _highScoreLabelReference.Text = $"High: 00{_highScore}";
+                }
+                else if (_highScore < 100)
+                {
+                    _highScoreLabelReference.Text = $"High: 0{_highScore}";
+                }
+                else
+                {
+                    _highScoreLabelReference.Text = $"High: {_highScore}";
+                }
+            }
+        }
+
+        private void SaveHighScore()
+        {
+            _config.SetValue("PlayerScore", "high_score", _highScore);
+
+            _config.Save("user://highscore.cfg");
         }
 
         public void ResetScore()
@@ -66,6 +104,7 @@ namespace Game.UI
         {
             _highScore = _score;
             // save the new high score
+            SaveHighScore();
             // update the high score UI
             if (_highScoreLabelReference.IsValid())
             {
