@@ -27,7 +27,7 @@ namespace Game.Paddle
             _velocity = newDirection;
         }
 
-        public void ResetPaddle()
+        public virtual void ResetPaddle()
         {
             _velocity = Vector2.Zero;
             Position = _startPos;

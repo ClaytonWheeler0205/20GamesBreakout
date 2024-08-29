@@ -37,6 +37,7 @@ namespace Game.Ball
         private const string PADDLE_NODE_GROUP = "Paddle";
         private const string GUTTER_NODE_GROUP = "Gutter";
         private const string BRICK_NODE_GROUP = "Brick";
+        private const string CEILING_NODE_GROUP = "Ceiling";
 
         //variables for calculating the bounce angle
         private const float MIN_BOUNCE_ANGLE = (float)(Math.PI / 6); // 30 degrees
@@ -69,6 +70,10 @@ namespace Game.Ball
 
         [Signal]
         delegate void PaddleHit();
+
+        [Signal]
+        delegate void CeilingHit();
+        private bool _hasHitCeiling = false;
 
         // Called when the node enters the scene tree for the first time.
 
@@ -167,6 +172,11 @@ namespace Game.Ball
                 else
                 {
                     _audioPlayer.PlaySound("ball_hit");
+                    if (collisionNode.IsInGroup(CEILING_NODE_GROUP))
+                    {
+                        _hasHitCeiling = true;
+                        EmitSignal(nameof(CeilingHit));
+                    }
                 }
             }
         }
@@ -177,7 +187,7 @@ namespace Game.Ball
             ResetBall();
             _hasHitPaddle = false;
             _audioPlayer.PlaySound("gutter_hit");
-            EmitSignal("GutterHit");
+            EmitSignal(nameof(GutterHit));
             GD.Print("Gutter hit!");
         }
 

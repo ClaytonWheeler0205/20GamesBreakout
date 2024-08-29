@@ -14,6 +14,8 @@ namespace Game
         IGameManager _livesManager;
         IGameScore _scoreUI;
 
+        private Control _startTitleLabel;
+
         private bool _screenOneCleared = false;
         private bool _screenTwoCleared = false;
         private bool _onScreenTwo = false;
@@ -84,6 +86,12 @@ namespace Game
                 GD.PrintErr("ERROR: Breakout lives manager is not valid!");
                 GetTree().Quit();
             }
+            _startTitleLabel = GetNode<Control>("%StartScreen");
+            if (!_startTitleLabel.IsValid())
+            {
+                GD.PrintErr("ERROR: Start screen label is not valid!");
+                GetTree().Quit();
+            }
         }
 
         private void StartGame()
@@ -104,6 +112,7 @@ namespace Game
             {
                 GetTree().Quit();
             }
+            _startTitleLabel.Visible = false;
             _isPlaying = true;
         }
 
@@ -129,6 +138,7 @@ namespace Game
             _screenOneCleared = false;
             _screenTwoCleared = false;
 
+            _startTitleLabel.Visible = true;
             _isPlaying = false;
         }
 
