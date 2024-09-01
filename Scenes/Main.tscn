@@ -77,7 +77,7 @@ collision_mask = 2
 shape = SubResource( 2 )
 
 [node name="Gutter2" type="StaticBody2D" parent="ArenaVisuals" groups=["Gutter"]]
-position = Vector2( -233, 330 )
+position = Vector2( -233, 340 )
 collision_layer = 32
 collision_mask = 2
 
@@ -85,7 +85,7 @@ collision_mask = 2
 shape = SubResource( 2 )
 
 [node name="Gutter3" type="StaticBody2D" parent="ArenaVisuals" groups=["Gutter"]]
-position = Vector2( 233, 330 )
+position = Vector2( 233, 340 )
 collision_layer = 32
 collision_mask = 2
 
