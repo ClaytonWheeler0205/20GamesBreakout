@@ -137,6 +137,7 @@ namespace Game
             _scoreUI.ResetScore();
             _screenOneCleared = false;
             _screenTwoCleared = false;
+            _onScreenTwo = false;
 
             _startTitleLabel.Visible = true;
             _isPlaying = false;
@@ -162,6 +163,7 @@ namespace Game
             }
             else if (_screenOneCleared && !_onScreenTwo)
             {
+                GD.Print("Setting up screen 2");
                 if (!_brickManager.StartGame())
                 {
                     GetTree().Quit();

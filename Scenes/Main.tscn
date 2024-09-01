@@ -76,6 +76,22 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaVisuals/Gutter"]
 shape = SubResource( 2 )
 
+[node name="Gutter2" type="StaticBody2D" parent="ArenaVisuals" groups=["Gutter"]]
+position = Vector2( -233, 330 )
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaVisuals/Gutter2"]
+shape = SubResource( 2 )
+
+[node name="Gutter3" type="StaticBody2D" parent="ArenaVisuals" groups=["Gutter"]]
+position = Vector2( 233, 330 )
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ArenaVisuals/Gutter3"]
+shape = SubResource( 2 )
+
 [node name="Managers" type="Node" parent="."]
 
 [node name="PaddleManager" parent="Managers" instance=ExtResource( 3 )]

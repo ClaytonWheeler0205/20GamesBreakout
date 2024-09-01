@@ -188,7 +188,6 @@ namespace Game.Ball
             _hasHitPaddle = false;
             _audioPlayer.PlaySound("gutter_hit");
             EmitSignal(nameof(GutterHit));
-            GD.Print("Gutter hit!");
         }
 
         private void HandlePaddleCollision(KinematicCollision2D collision)
@@ -227,30 +226,27 @@ namespace Game.Ball
             _audioPlayer.PlaySound("brick_hit");
             BrickBase brick = collisionNode as BrickBase;
             brick.BrickHit();
+            
             _bricksHit++;
             if (_bricksHit % 4 == 0 && !_hasHitFourBricks)
             {
                 _currentSpeed += _speedIncrease;
                 _hasHitFourBricks = true;
-                GD.Print("Speed increase");
             }
             if (_bricksHit % 12 == 0 && !_hasHitTwelveBricks)
             {
                 _currentSpeed += _speedIncrease;
                 _hasHitTwelveBricks = true;
-                GD.Print("Speed increase");
             }
             if (brick.BrickColorName == "orange" && !_hasHitOrangeBrick)
             {
                 _currentSpeed += _speedIncrease;
                 _hasHitOrangeBrick = true;
-                GD.Print("Speed increase");
             }
             if (brick.BrickColorName == "red" && !_hasHitRedBrick)
             {
                 _currentSpeed += _speedIncrease;
                 _hasHitRedBrick = true;
-                GD.Print("Speed increase");
             }
         }
 

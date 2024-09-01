@@ -40,6 +40,7 @@ namespace Game
                 Node brickNode = brick as Node;
                 brickNode.SafeQueueFree();
             }
+            _brickCount = 0;
             return true;
         }
 
@@ -129,12 +130,13 @@ namespace Game
 
         public void OnAwardPoints(int pointValue)
         {
-            EmitSignal(nameof(PointsScored), pointValue);
             _brickCount--;
             if (_brickCount <= 0)
             {
+                GD.Print("Bricks Cleared!");
                 EmitSignal(nameof(BricksCleared));
             }
+            EmitSignal(nameof(PointsScored), pointValue);
         }
     }
 }
